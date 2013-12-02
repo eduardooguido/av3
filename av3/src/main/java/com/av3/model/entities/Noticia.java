@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -33,7 +34,7 @@ public class Noticia implements Serializable {
     @Column(name = "Usuario", length = 40)
     private String usuarioNoticia;
     @Column(name = "Categoria", length = 40)
-    private String categoria;
+    private String categoriaNoticia;
     @Column(name = "Titulo", nullable = false, length = 80)
     private String titulo;
     @Column(name = "Noticia", nullable = false, length = 80)
@@ -43,11 +44,19 @@ public class Noticia implements Serializable {
     
     
     @ManyToOne(optional = false)
-    @ForeignKey(name = "NoticiaUsuario")
-    private Noticia noticias;
-
+    @ForeignKey(name = "UsuarioNotica")
+    @JoinColumn(name = "iDUsuario", referencedColumnName = "iDUsuario")
+    private Usuario usuario;
     
+    
+    @ManyToMany
+    @ForeignKey(name = "CategoriaNoticia")
+    @JoinColumn(name = "IdCategoria", referencedColumnName = "IdCategoria")
+    private Categoria categoria;
+
     public Noticia() {
+        this.usuario = new Usuario();
+        this.categoria = new Categoria();
     }
 
     public Integer getIdNoticia() {
@@ -74,12 +83,12 @@ public class Noticia implements Serializable {
         this.usuarioNoticia = usuarioNoticia;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getCategoriaNoticia() {
+        return categoriaNoticia;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setCategoriaNoticia(String categoriaNoticia) {
+        this.categoriaNoticia = categoriaNoticia;
     }
 
     public String getTitulo() {
@@ -106,6 +115,27 @@ public class Noticia implements Serializable {
         this.status = status;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+  
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 5;

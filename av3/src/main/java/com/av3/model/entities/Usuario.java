@@ -39,7 +39,7 @@ public class Usuario implements Serializable {
     private String permissao;
     
 @OneToMany(mappedBy = "Usuario", fetch = FetchType.LAZY)
-@ForeignKey (name = "NoticaUsuario")
+@ForeignKey (name = "UsuarioNotica")
 
 private List<Noticia> noticias;
 
