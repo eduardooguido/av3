@@ -4,7 +4,6 @@
  */
 package com.av3.model.entities;
 
-    
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -19,43 +18,35 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import org.hibernate.annotations.ForeignKey;
 
-
 @Entity
-@Table (name="Noticia")
-public class Noticia  implements Serializable {
-    
-    private static final long serialVersionUID =  1L;
-    
+@Table(name = "Noticia")
+public class Noticia implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
-    @Column(name="idNoticia", nullable=false)
+    @Column(name = "idNoticia", nullable = false)
     private Integer idNoticia;
-    
-    @Column (name="Data", nullable = false)
+    @Column(name = "Data", nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date data;
-  
-    
     @Column(name = "Usuario", length = 40)
     private String usuarioNoticia;
-    
     @Column(name = "Categoria", length = 40)
     private String categoria;
-    
-      @Column (name="Titulo", nullable = false, length = 80 )
+    @Column(name = "Titulo", nullable = false, length = 80)
     private String titulo;
-      
-        @Column (name="Noticia", nullable = false, length = 80 )
+    @Column(name = "Noticia", nullable = false, length = 80)
     private String noticia;
-    
     @Column(name = "Status", length = 36)
     private String status;
     
     
-    @ManyToOne(optional=false)
-    @ForeignKey(name = "NoticiaUsuario") 
-    private Usuario usuario;
+    @ManyToOne(optional = false)
+    @ForeignKey(name = "NoticiaUsuario")
+    private Noticia noticias;
 
+    
     public Noticia() {
     }
 
@@ -115,14 +106,6 @@ public class Noticia  implements Serializable {
         this.status = status;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
     @Override
     public int hashCode() {
         int hash = 5;
@@ -144,9 +127,4 @@ public class Noticia  implements Serializable {
         }
         return true;
     }
-
-   
-    
-    }
-             
-
+}
