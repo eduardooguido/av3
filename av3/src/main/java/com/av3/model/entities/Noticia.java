@@ -4,35 +4,57 @@
  */
 package com.av3.model.entities;
 
-/**
- *
- * @author casa
- */
+    
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import org.hibernate.annotations.ForeignKey;
+
 
 @Entity
-@Table(name = "noticia")
-public class Noticia implements Serializable {
-    //interface serializable para agilizar o transporte pela rede
-
-    private static final long serialVersionUID = 1L;
-    @Id // id da tabela do hibernate ( chave primaria )
-    @GeneratedValue // informa pro hibernate que o campo sera gerado pelo banco ( MySQL )e sera auto incremento 
-    @Column(name = "IdNoticia", nullable = false) //nome na tabela que nao aceita nulo 
+@Table (name="Noticia")
+public class Noticia  implements Serializable {
+    
+    private static final long serialVersionUID =  1L;
+    
+    @Id
+    @GeneratedValue
+    @Column(name="idNoticia", nullable=false)
     private Integer idNoticia;
-    @Column(name = "Name", nullable = false, length = 80) // define nome e regras ( nullable não aceita nulo) ( length tamanho )
-    private String nome;
-    @Column(name = "Login", unique = true, length = 25)
-    private String login;
-    @Column(name = "Senha", length = 40)
-    private String senha;
-    @Column(name = "Permissao", length = 36)
-    private String permissao;
+    
+    @Column (name="Data", nullable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date data;
+  
+    
+    @Column(name = "Usuario", length = 40)
+    private String usuarioNoticia;
+    
+    @Column(name = "Categoria", length = 40)
+    private String categoria;
+    
+      @Column (name="Titulo", nullable = false, length = 80 )
+    private String titulo;
+      
+        @Column (name="Noticia", nullable = false, length = 80 )
+    private String noticia;
+    
+    @Column(name = "Status", length = 36)
+    private String status;
+    
+    
+    @ManyToOne(optional=false)
+    @ForeignKey(name = "NoticiaUsuario") 
+    private Usuario usuario;
 
     public Noticia() {
     }
@@ -45,43 +67,66 @@ public class Noticia implements Serializable {
         this.idNoticia = idNoticia;
     }
 
-    public String getNome() {
-        return nome;
+    public Date getData() {
+        return data;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setData(Date data) {
+        this.data = data;
     }
 
-   
-    public String getLogin() {
-        return login;
+    public String getUsuarioNoticia() {
+        return usuarioNoticia;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsuarioNoticia(String usuarioNoticia) {
+        this.usuarioNoticia = usuarioNoticia;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
-    public String getPermissao() {
-        return permissao;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setPermissao(String permissao) {
-        this.permissao = permissao;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getNoticia() {
+        return noticia;
+    }
+
+    public void setNoticia(String noticia) {
+        this.noticia = noticia;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 23 * hash + (this.idNoticia != null ? this.idNoticia.hashCode() : 0);
+        int hash = 5;
+        hash = 31 * hash + (this.idNoticia != null ? this.idNoticia.hashCode() : 0);
         return hash;
     }
 
@@ -99,4 +144,9 @@ public class Noticia implements Serializable {
         }
         return true;
     }
-}
+
+   
+    
+    }
+             
+
